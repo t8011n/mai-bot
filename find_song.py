@@ -1,12 +1,13 @@
 import json
 
+# 找不到internal level 就取 level
 def get_level(sheet):
     #level = ""
     level = sheet.get("internalLevelValue")
     if level is None:
         level = sheet.get("level", "") #加入預設值 確保func return 不為空
-
     return str(level) 
+
 
 def abbr_dif(sheet):
     d = ""
@@ -26,6 +27,7 @@ def abbr_dif(sheet):
     return d
 
 
+# list all difficulties of this song
 def find_difficulties(song):
     dif_st = []
     dif_dx = []
@@ -46,20 +48,6 @@ def find_difficulties(song):
         dif_results.append("DX : " + " / ".join(dif_dx))
     
     return "\n".join(dif_results) if dif_results else "none" #st \n dx 
-
-    '''
-    all_difficulties = []
-    for dif in song.get("sheets", []):
-        dif_st = ""
-        for one_dif in dif.get("type", ""):
-            if one_dif["type"] == "std":
-                dif_st += ("/" + one_dif["difficulty"] + "/" + one_dif["level"] + "/")
-        dif_dx = ""
-        for one_dif in sheets.get("type", ""):
-            if one_dif["type"] == "dx":
-                dif_dx += ("/" + one_dif["difficulty"] + "/" + one_dif["level"] + "/")
-
-    '''
 
 
 # 任何sheet中的 regions 的 intl is true
